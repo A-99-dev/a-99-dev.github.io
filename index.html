@@ -1,0 +1,901 @@
+<!-- Telegram : Karbawzi1File -->
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Karbawzi</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;700&family=Orbitron:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Exo 2', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+            color: #fff;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+
+        /* Karbawzi1File */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(15, 15, 35, 0.8), rgba(10, 10, 30, 0.9)),
+                url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M0 0h100v100H0z" fill="none"/%3E%3Cpath d="M20 20h60v60H20z" stroke="rgba(0,150,255,0.05)" stroke-width="2" fill="none"/%3E%3Cpath d="M30 30h40v40H30z" stroke="rgba(0,150,255,0.03)" stroke-width="1" fill="none"/%3E%3C/svg%3E');
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: -2;
+        }
+
+        /* Karbawzi1PV */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 150, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 150, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Karbawzi1File */
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .rain-drop {
+            position: absolute;
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(transparent, rgba(0, 200, 255, 0.6));
+            animation: rain linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes rain {
+            0% {
+                transform: translateY(-100vh);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Karbawzi1File */
+        .lightning {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            z-index: -1;
+            animation: lightning 15s infinite;
+        }
+
+        @keyframes lightning {
+            0% {
+                opacity: 0;
+            }
+            2% {
+                opacity: 0;
+            }
+            2.5% {
+                opacity: 0.4;
+            }
+            3% {
+                opacity: 0;
+            }
+            3.5% {
+                opacity: 0.6;
+            }
+            4% {
+                opacity: 0;
+            }
+            4.5% {
+                opacity: 0.3;
+            }
+            5% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: clamp(2.5rem, 8vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+            position: relative;
+            padding: 0 20px;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(0, 150, 255, 0.5), 0 0 20px rgba(0, 150, 255, 0.3);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(0, 200, 255, 0.7), 0 0 30px rgba(0, 150, 255, 0.5);
+            }
+        }
+
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 20px;
+            width: calc(100% - 40px);
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 150, 255, 0.7), transparent);
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            color: rgba(0, 200, 255, 0.8);
+            text-align: center;
+            margin: 0 0 2rem 0;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+            padding: 0 20px;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            color: white;
+            transform: translateY(0);
+            opacity: 0;
+            animation: fadeInUp 0.5s forwards;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(10, 15, 30, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: 0.6s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+            z-index: -1;
+            border-radius: 12px;
+        }
+
+        /* Karbawzi1File */
+        .crack {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover .crack {
+            opacity: 0.8;
+        }
+
+        .crack-line {
+            position: absolute;
+            background: rgba(255,255,255,0.8);
+            transform-origin: 0 0;
+        }
+
+        .btn:nth-child(1) { 
+            animation-delay: 0.2s; 
+        }
+        .btn:nth-child(2) { 
+            animation-delay: 0.4s; 
+        }
+        .btn:nth-child(3) { 
+            animation-delay: 0.6s; 
+        }
+        .btn:nth-child(4) { 
+            animation-delay: 0.8s; 
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+        }
+
+        #youtuber {
+            border-left: 4px solid #ff4d4d;
+        }
+        #youtuber:hover {
+            background: rgba(70, 20, 30, 0.6);
+            box-shadow: 0 8px 30px rgba(255, 50, 50, 0.4);
+        }
+
+        #personal {
+            border-left: 4px solid #4d79ff;
+        }
+        #personal:hover {
+            background: rgba(20, 30, 70, 0.6);
+            box-shadow: 0 8px 30px rgba(50, 100, 255, 0.4);
+        }
+
+        #magical {
+            border-left: 4px solid #b84dff;
+        }
+        #magical:hover {
+            background: rgba(50, 20, 70, 0.6);
+            box-shadow: 0 8px 30px rgba(150, 50, 255, 0.4);
+        }
+
+        #free-file {
+            border-left: 4px solid #4dff88;
+        }
+        #free-file:hover {
+            background: rgba(20, 70, 40, 0.6);
+            box-shadow: 0 8px 30px rgba(50, 255, 100, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: rgba(10, 15, 30, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 0 40px rgba(0, 100, 255, 0.6);
+            transform: scale(0.8);
+            opacity: 0;
+            animation: modalOpen 0.3s forwards;
+            position: relative;
+            border: 1px solid rgba(0, 150, 255, 0.3);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            text-align: center;
+        }
+
+        @keyframes modalOpen {
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ff4d4d;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+            color: #ff8080;
+        }
+
+        .info-page {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .info-title {
+            font-size: clamp(1.5rem, 6vw, 1.8rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: rgba(0, 200, 255, 0.9);
+            text-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
+        }
+
+        .motivational-quote {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.95);
+            font-style: italic;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgba(0, 30, 60, 0.3);
+            border-left: 4px solid rgba(0, 200, 255, 0.7);
+            animation: textGlow 3s infinite alternate;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .motivational-quote::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.1), transparent 70%);
+            z-index: -1;
+            animation: photonGlow 6s infinite alternate;
+        }
+
+        @keyframes photonGlow {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(20px, 20px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.3), 0 0 2px rgba(0, 200, 255, 0.5);
+            }
+            to {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 5px rgba(0, 200, 255, 0.8);
+            }
+        }
+
+        .download-btn {
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(0, 150, 255, 0.7);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            border: 1px solid rgba(0, 150, 255, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .download-btn:hover::before {
+            left: 100%;
+        }
+
+        .download-btn:hover {
+            background: rgba(0, 170, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 150, 255, 0.5);
+        }
+
+        .back-btn {
+            padding: 12px 25px;
+            border-radius: 12px;
+            border: none;
+            background: rgba(40, 45, 60, 0.7);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: rgba(60, 65, 80, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Karbawzi1PV */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Karbawzi1PV */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 150, 255, 0.8), transparent 70%);
+            top: -100px;
+            right: -100px;
+            animation: pulse 8s infinite alternate;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(150, 0, 255, 0.6), transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            animation: pulse 10s infinite alternate-reverse;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.1;
+            }
+        }
+
+        /* Karbawzi1File */
+        .emoji {
+            font-size: 1.2em;
+            vertical-align: middle;
+            animation: floatEmoji 3s infinite ease-in-out;
+        }
+
+        @keyframes floatEmoji {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .buttons {
+                max-width: 90%;
+            }
+            
+            .btn {
+                padding: 14px 20px;
+                font-size: 1.1rem;
+            }
+            
+            .modal-content {
+                padding: 25px 20px;
+            }
+            
+            .motivational-quote {
+                padding: 15px;
+            }
+            
+            .download-btn, .back-btn {
+                padding: 12px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .btn {
+                padding: 12px 18px;
+                font-size: 1rem;
+                border-radius: 10px;
+            }
+            
+            .modal-content {
+                padding: 20px 15px;
+            }
+            
+            .info-title {
+                font-size: 1.3rem;
+            }
+            
+            .motivational-quote {
+                font-size: 0.9rem;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lightning"></div>
+    <div class="rain" id="rain"></div>
+    <div class="particles" id="particles"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    
+    <div class="container">
+        <div class="logo">Karbawzi</div>
+        <div class="subtitle">Karbawzi1File</div>
+        
+        <div class="buttons">
+            <button class="btn" id="youtuber">
+                <span class="crack" id="crack1"></span>
+                YOUTUBER <span class="emoji">🎥</span>
+            </button>
+            <button class="btn" id="personal">
+                <span class="crack" id="crack2"></span>
+                Personal <span class="emoji">👤</span>
+            </button>
+            <button class="btn" id="magical">
+                <span class="crack" id="crack3"></span>
+                Magical <span class="emoji">✨</span>
+            </button>
+            <button class="btn" id="free-file">
+                <span class="crack" id="crack4"></span>
+                Free File <span class="emoji">🎁</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Telegram : Karbawzi1File -->
+    <div class="modal" id="contentModal">
+        <div class="modal-content">
+            <span class="close-modal">×</span>
+            
+            <div class="info-page">
+                <h2 class="info-title" id="infoTitle">Welcome</h2>
+                <div class="motivational-quote" id="motivationalQuote"></div>
+                <a href="#" class="download-btn" id="downloadBtn">
+                    Download <span class="emoji">⬇️</span>
+                </a>
+                <button class="back-btn" id="backBtn">
+                    Back to Main <span class="emoji">🔙</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create rain effect
+            const rainContainer = document.getElementById('rain');
+            for (let i = 0; i < 100; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('rain-drop');
+                drop.style.left = Math.random() * 100 + 'vw';
+                drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+                drop.style.animationDelay = Math.random() * 2 + 's';
+                drop.style.height = (Math.random() * 20 + 10) + 'px';
+                drop.style.opacity = Math.random() * 0.5 + 0.3;
+                rainContainer.appendChild(drop);
+            }
+            
+            // Create floating particles
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.width = (Math.random() * 3 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(particle);
+            }
+            
+            // Create glass crack effects for buttons
+            function createCracks(buttonId) {
+                const button = document.getElementById(buttonId);
+                const crack = document.createElement('div');
+                crack.classList.add('crack');
+                
+                // Create random cracks
+                for (let i = 0; i < 3; i++) {
+                    const crackLine = document.createElement('div');
+                    crackLine.classList.add('crack-line');
+                    
+                    const length = Math.random() * 60 + 20;
+                    const angle = Math.random() * 360;
+                    const left = Math.random() * 80 + 10;
+                    const top = Math.random() * 80 + 10;
+                    const width = Math.random() * 2 + 0.5;
+                    
+                    crackLine.style.width = `${length}px`;
+                    crackLine.style.height = `${width}px`;
+                    crackLine.style.left = `${left}%`;
+                    crackLine.style.top = `${top}%`;
+                    crackLine.style.transform = `rotate(${angle}deg)`;
+                    crackLine.style.opacity = Math.random() * 0.5 + 0.3;
+                    
+                    crack.appendChild(crackLine);
+                }
+                
+                button.appendChild(crack);
+            }
+            
+            createCracks('youtuber');
+            createCracks('personal');
+            createCracks('magical');
+            createCracks('free-file');
+            
+            // Motivational quotes
+            const motivationalQuotes = [
+                "The only limit to our realization of tomorrow is our doubts of today. ✨",
+                "Success is not final, failure is not fatal: It is the courage to continue that counts. 💪",
+                "Believe you can and you're halfway there. 🚀",
+                "Your time is limited, don't waste it living someone else's life. ⏳",
+                "The future belongs to those who believe in the beauty of their dreams. 🌌",
+                "Strive not to be a success, but rather to be of value. 🌟",
+                "The only way to do great work is to love what you do. ❤️",
+                "Don't watch the clock; do what it does. Keep going. ⏱️",
+                "The secret of getting ahead is getting started. 🏁",
+                "It always seems impossible until it's done. 🔥",
+                "Act as if what you do makes a difference. It does. 🌍",
+                "You are never too old to set another goal or to dream a new dream. 🌈",
+                "The harder you work for something, the greater you'll feel when you achieve it. 🏆",
+                "Dream bigger. Do bigger. 🌠",
+                "Wake up with determination. Go to bed with satisfaction. ☀️🌙"
+            ];
+            
+            const youtuberBtn = document.getElementById('youtuber');
+            const personalBtn = document.getElementById('personal');
+            const magicalBtn = document.getElementById('magical');
+            const freeFileBtn = document.getElementById('free-file');
+            const contentModal = document.getElementById('contentModal');
+            const closeModal = document.querySelector('.close-modal');
+            const infoTitle = document.getElementById('infoTitle');
+            const motivationalQuote = document.getElementById('motivationalQuote');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const backBtn = document.getElementById('backBtn');
+            
+            const contentInfo = {
+                'youtuber': {
+                    title: '🎥 YOUTUBER Access',
+                    downloadText: 'Download YOUTUBER Package',
+                    downloadLink: 'https://a-99-dev.github.io/myfiles/YouTuber_V13.zip'
+                },
+                'personal': {
+                    title: '👤 Personal Access',
+                    downloadText: 'Download Personal Files',
+                    downloadLink: 'https://a-99-dev.github.io/myfiles/Personal_V12.zip'
+                },
+                'magical': {
+                    title: '✨ Magical Access',
+                    downloadText: 'Download Magical Content',
+                    downloadLink: 'https://a-99-dev.github.io/myfiles/Magical_V12.zip'
+                },
+                'free-file': {
+                    title: '🎁 Free File Access',
+                    downloadText: 'Download Free File',
+                    downloadLink: 'https://s33.picofile.com/file/8485667142/FreeFile_Karbawzi.zip.html'
+                }
+            };
+            
+            function openModal(option) {
+                const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+                
+                infoTitle.textContent = contentInfo[option].title;
+                motivationalQuote.textContent = randomQuote;
+                downloadBtn.textContent = contentInfo[option].downloadText;
+                downloadBtn.href = contentInfo[option].downloadLink;
+                
+                if (option === 'free-file') {
+                    downloadBtn.style.background = 'rgba(0, 200, 100, 0.7)';
+                    downloadBtn.style.borderColor = 'rgba(0, 200, 100, 0.5)';
+                } else {
+                    downloadBtn.style.background = 'rgba(0, 150, 255, 0.7)';
+                    downloadBtn.style.borderColor = 'rgba(0, 150, 255, 0.5)';
+                }
+                
+                contentModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeModalFunc() {
+                contentModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            youtuberBtn.addEventListener('click', () => openModal('youtuber'));
+            personalBtn.addEventListener('click', () => openModal('personal'));
+            magicalBtn.addEventListener('click', () => openModal('magical'));
+            freeFileBtn.addEventListener('click', () => openModal('free-file'));
+            
+            closeModal.addEventListener('click', closeModalFunc);
+            backBtn.addEventListener('click', closeModalFunc);
+            
+            window.addEventListener('click', function(e) {
+                if (e.target === contentModal) {
+                    closeModalFunc();
+                }
+            });
+            
+            // Random lightning effect
+            setInterval(() => {
+                const lightning = document.querySelector('.lightning');
+                lightning.style.animation = 'none';
+                void lightning.offsetWidth; // Trigger reflow
+                lightning.style.animation = 'lightning ' + (Math.random() * 10 + 10) + 's infinite';
+            }, 15000);
+            
+            // Handle orientation changes
+            function handleOrientationChange() {
+                const isPortrait = window.innerHeight > window.innerWidth;
+                if (isPortrait && window.innerWidth < 768) {
+                    // Adjust layout for mobile portrait
+                    document.querySelector('.buttons').style.maxWidth = '90%';
+                } else {
+                    // Reset to default
+                    document.querySelector('.buttons').style.maxWidth = '400px';
+                }
+            }
+            
+            window.addEventListener('resize', handleOrientationChange);
+            window.addEventListener('orientationchange', handleOrientationChange);
+            handleOrientationChange(); // Initial check
+        });
+    </script>
+</body>
+</html>
+<!-- Telegram : Karbawzi1File -->
