@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آپلود فایل و افزودن GUID</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #007bff;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        label:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function generateGuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        function processFile(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const lines = e.target.result.split('\n');
+                let output = '';
+                const replacementText = "// Editor you're mother F**ker";
+                const totalLines = lines.length;
+
+                for (let i = 0; i < totalLines; i++) {
+                    if (i < 30 || i >= totalLines - 30) {
+                        output += `${replacementText}\n`;
+                    } else {
+                        if (i === 30) {
+                            output += '\n'; // اضافه کردن خط خالی بعد از خط ۳۰
+                        }
+                        const guids = [
+                            generateGuid(),
+                            generateGuid(),
+                            generateGuid(),
+                            generateGuid(),
+                            generateGuid(),
+                            generateGuid()
+                        ];
+                        const textLines = [
+                            `// "${guids[0]} ___ [ CFG ] ___@Karbawzi1pv ${guids[1]} ${guids[2]} 67-70-71"`,
+                            `// "${guids[3]} ___ [ By ] ___@ijustwantyou_yez ${guids[4]} ${guids[5]} 66-121"`,
+                            `// "${guids[2]} ___ [ KarBawzi ] ___@karbawzi1file 91-90-93-101-88-105-45-77-111-78 ${guids[0]}"`
+                        ];
+                        output += `${lines[i]}\n${textLines.join('\n')}\n`;
+                    }
+                }
+                callback(output);
+            };
+            reader.readAsText(file);
+        }
+
+        function handleFiles(event) {
+            const files = event.target.files;
+            let combinedOutput = "// Editor you're mother F**ker\n";
+
+            function processNextFile(index) {
+                if (index < files.length) {
+                    const file = files[index];
+                    processFile(file, function (output) {
+                        combinedOutput += output;
+                        processNextFile(index + 1);
+                    });
+                } else {
+                    combinedOutput += "// Editor you're mother F**ker\n";
+                    downloadFile(combinedOutput, 'combined_output.sh');
+                }
+            }
+
+            processNextFile(0);
+        }
+
+        function downloadFile(content, fileName) {
+            const a = document.createElement('a');
+            const file = new Blob([content], { type: 'text/plain' });
+            a.href = URL.createObjectURL(file);
+            a.download = fileName;
+            a.click();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>آپلود فایل و افزودن GUID</h1>
+        <input type="file" id="files" accept=".sh" multiple onchange="handleFiles(event)">
+        <label for="files">Choose .sh files</label>
+        <div class="output"></div>
+    </div>
+</body>
+</html>
