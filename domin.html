@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>بررسی موقعیت دامنه</title>
+  <style>
+    body { font-family: sans-serif; background: #f0f0f0; padding: 2em; direction: rtl; }
+    #result { background: white; padding: 1em; border-radius: 8px; box-shadow: 0 0 10px #ccc; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h2>بررسی موقعیت دامنه</h2>
+  <div id="result">در حال دریافت اطلاعات...</div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const domain = params.get("domain");
+
+    function validateDomain(name) {
+      const pattern = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return pattern.test(name);
+    }
+
+    async function fetchInfo(domainName) {
+      const resultDiv = document.getElementById("result");
+
+      if (!domainName || !validateDomain(domainName)) {
+        resultDiv.textContent = JSON.stringify({
+          ok: false,
+          owner: "@CodeCraftersTeam",
+          channel: "@DevMrErfi",
+          error: "پارامتر domain وارد نشده یا معتبر نیست"
+        }, null, 2);
+        return;
+      }
+
+      try {
+        const response = await fetch(`http://demo.ip-api.com/json/${encodeURIComponent(domainName)}`);
+        const data = await response.json();
+        const final = {
+          ok: true,
+          owner: "@CodeCraftersTeam",
+          channel: "@DevMrErfi",
+          result: data
+        };
+        resultDiv.textContent = JSON.stringify(final, null, 2);
+      } catch (err) {
+        resultDiv.textContent = JSON.stringify({
+          ok: false,
+          owner: "@CodeCraftersTeam",
+          channel: "@DevMrErfi",
+          error: "خطا در اتصال به API"
+        }, null, 2);
+      }
+    }
+
+    fetchInfo(domain);
+  </script>
+</body>
+</html>
