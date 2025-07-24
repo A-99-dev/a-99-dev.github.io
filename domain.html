@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>بررسی موقعیت دامنه</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Vazir', sans-serif;
+      background: radial-gradient(circle at top, #0f0f0f, #000000);
+      color: #00ffe7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2em;
+      text-shadow: 0 0 10px #00ffff;
+      margin-bottom: 1em;
+    }
+
+    .container {
+      background: #1a1a1a;
+      border-radius: 15px;
+      padding: 2em;
+      box-shadow: 0 0 15px #00ffff;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    input[type="text"] {
+      padding: 0.7em;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      background: #111;
+      color: #00ffe7;
+      box-shadow: inset 0 0 10px #00ffff;
+      outline: none;
+      margin-bottom: 1em;
+      transition: box-shadow 0.3s;
+    }
+
+    input[type="text"]:focus {
+      box-shadow: inset 0 0 15px #00ccff;
+    }
+
+    button {
+      background: #00ffff;
+      color: #000;
+      border: none;
+      padding: 0.6em 1.5em;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00ffff;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      background: #00ccff;
+      box-shadow: 0 0 25px #00ccff;
+    }
+
+    #result {
+      margin-top: 1.5em;
+      padding: 1em;
+      background: #000;
+      border-radius: 10px;
+      color: #00ffe7;
+      white-space: pre-wrap;
+      max-width: 400px;
+      box-shadow: 0 0 10px #00ffff;
+      overflow-y: auto;
+      max-height: 40vh;
+    }
+  </style>
+</head>
+<body>
+  <h1>بررسی موقعیت دامنه 🌍</h1>
+  <div class="container">
+    <input type="text" id="domainInput" placeholder="نام دامنه را وارد کنید (مثلاً google.com)">
+    <button onclick="getDomainInfo()">دریافت اطلاعات</button>
+    <div id="result">⬅️ منتظر ورود دامنه...</div>
+  </div>
+
+  <script>
+    function validateDomain(domain) {
+      const regex = /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return regex.test(domain);
+    }
+
+    async function getDomainInfo() {
+      const domain = document.getElementById("domainInput").value.trim();
+      const resultDiv = document.getElementById("result");
+
+      if (!validateDomain(domain)) {
+        resultDiv.textContent = "❌ دامنه معتبر نیست یا وارد نشده.";
+        return;
+      }
+
+      resultDiv.textContent = "⏳ در حال دریافت اطلاعات...";
+
+      try {
+        const response = await fetch(`http://demo.ip-api.com/json/${encodeURIComponent(domain)}`);
+        const data = await response.json();
+        const final = {
+          ok: true,
+          owner: "@Ijustwantyou_yez",
+          channel: "@cfg_client_mod",
+          result: data
+        };
+
+        resultDiv.textContent = JSON.stringify(final, null, 2);
+      } catch (err) {
+        resultDiv.textContent = "⚠️ خطا در اتصال به API";
+      }
+    }
+  </script>
+</body>
+</html>
